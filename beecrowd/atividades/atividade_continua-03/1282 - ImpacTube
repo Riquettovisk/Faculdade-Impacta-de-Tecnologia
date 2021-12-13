@@ -36,62 +36,57 @@ em reais e com duas casas decimais, exatamente como consta nos exemplos.
 
 # Resposta:
 
-# Atenção, caso queira copiar este código para o URI VOCÊ DEVE RETIRAR OS DOCS STRINGS E ANNOTATIONS!, CASO CONTRARIO,
-# NÃO IRÁ PASSAR NO URI.
+def obter_dados_canal(lista):
+  for _ in range(lista):
+    # Capturando informações do canal
+    nome,inscritos,monetizacao,ehpremium = input().split(';')
 
-def header() -> print():
-    """
-    Imprimi o cabeçalho
-    ->  -----
-        BÔNUS
-        -----
-    :return: None
-    """
-    print(f'{"-" * 5}\nBÔNUS\n{"-" * 5}')
+    # Convertendo tipo de dados das informações
+    inscritos = int(inscritos)
+    monetizacao = float(monetizacao)
+    ehpremium = ehpremium == 'sim'
 
+    # Adicionando canal na lista de canais
+    canais.append([nome, inscritos, monetizacao, ehpremium])
 
-def payment_calculator(p1: list, p2: float, p3: float) -> list:
-    """
-    Calcula os valores de acordo com a quantidade inscritos no canal, se é conteudo premium ou não, somado ao pagamento
-    do mês anterior, caso não seja conteúdo premium, sua comissão irá ser calculada sobre o valor de x, senão, pelo
-    valor de y. O pagamento irá ser calculado de acordo com a cada 1000 inscritos no canal. Imprime o resultado final,
-    após o cálculo
-    :param p1: Lista contendo os dados dos Canais: Nome do canal, qtde_inscritos,
-    :param p2: Float -> caso seja conteúdo premium.
-    :param p3: Float -> caso NÃO seja conteúdo premium
-    :return: Retorna a lista com os valores que cada Canal deverá receber.
-    """
-    payment_calculated = []
-    for i in p1:
-        if i[1] >= 1000:
-            if 'sim' == i[3]:
-                pre_payment = [i[0], ((i[1] // 1000) * p2) + i[2]]
-                payment_calculated.append(pre_payment)
-            else:
-                pre_payment = [i[0], ((i[1] // 1000) * p3) + i[2]]
-                payment_calculated.append(pre_payment)
-        else:
-            pre_payment = [i[0], i[2]]
-            payment_calculated.append(pre_payment)
-    # Fim do calculo
-    header()  # Imprimi Cabeçalho
-    for i in payment_calculated:  # Imprime o resultado formatado
-        print(f'{i[0]}: R$ {i[1]:.2f}')
+def calcular_bonificacao(valor_premium, valor_nao_premium):
+  lista_de_bonificacao = []
 
+  for canal in canais:
+    nome = canal[0]
+    incrito = canal[1]
+    valor_da_monetizacao = canal[2]
+    ehpremium = canal[3]
 
-full_table = []
-table_size = int(input())
-count = 1
-while count <= table_size:
-    data = input().split(';')
-    channel_name = str(data[0]).strip()
-    qtd_inscriptions = int(data[1])
-    monetization = float(data[2])
-    premium_content = str(data[3]).strip().lower()
-    table = [channel_name, qtd_inscriptions, monetization, premium_content]
-    full_table.append(table)
-    count += 1
+    if (ehpremium):
+      valor_da_monetizacao += incrito // 1000 * valor_premium
+    else:
+      valor_da_monetizacao += incrito // 1000 * valor_nao_premium
 
-x = float(input())
-y = float(input())
-payment = payment_calculator(full_table, x, y)
+    lista_de_bonificacao.append([nome, valor_da_monetizacao])
+
+  return lista_de_bonificacao
+
+def exibir_bonificacao(bonus):
+  print('-----')
+  print('BÔNUS')
+  print('-----')
+
+  for bonificacao in bonus:
+
+    nome = bonificacao[0]
+    valor = bonificacao[1]
+    print(f'{nome}: R$ {valor:.2f}')
+
+canais = []
+
+# ENTRADAS
+quantidade_de_canais = int(input())
+
+if (1 <= quantidade_de_canais <= 200):
+  obter_dados_canal(quantidade_de_canais)
+
+  valor_premium = float(input())
+  valor_nao_premium = float(input())
+
+  exibir_bonificacao(calcular_bonificacao(valor_premium, valor_nao_premium))
