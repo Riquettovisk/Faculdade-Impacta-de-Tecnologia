@@ -28,65 +28,53 @@ Obs.: Lembre-se de não exibir texto no input.
 
 # Resposta:
 
-# Atenção, caso queira copiar este código para o URI VOCÊ DEVE RETIRAR OS DOCS STRINGS E ANNOTATIONS!, CASO CONTRARIO,
-# NÃO IRÁ PASSAR NO URI.
+# Definir a nossa lista de carrinho de compras
+carrinho_de_compras = input().split() # 1 2 3 4 => ['1', '2', '3', '4']
 
-def adicionar(param1: list, param2: list) -> list:
-    """
-    Converte os valor do parâmetro 2 para inteiro, caso haja algum dado que não seja um número, este será
-    desconsiderado, após, será incluido dentro da lista do carrinho.
-    :param param1: list -> Carrinho os valores dos códigos do produto;
-    :param param2: list -> Valores que contém os códigos à serem adicionados ao carrinho;
-    :return: list -> retorna a lista do carrinho, com os códigos adicionados.
-    """
-    for i in param2:
-        try:
-            param1.append(int(i))
-        except ValueError:
-            pass
-    return param1
+# Verificação se o carrinho não for vazio, converter os itens string para inteiros
+if (carrinho_de_compras != []):
 
+  # Conversão de string para inteiros
+  for i in range(len(carrinho_de_compras)):
+    carrinho_de_compras[i] = int(carrinho_de_compras[i])
+    # ['3', '5'] => [3, 5]
 
-def remover(param1: list, param2: str) -> list:
-    """
-    Remove o item do carrinho. Caso o código informado não esteja na lista do carrinho, este será desconsiderado, e
-    será impresso uma mensagem ao usuário.
-    :param param1: list -> Contêm os valores dos códigos dos produtos no carrinho;
-    :param param2: str -> Recebe o input do usuário com o código do produto a ser removido, sendo convertido para int;
-    :return: A lista atualizada com o código do produto removido, caso este esteja dentro do carrinho.
-    """
-    try:
-        param1.remove(int(param2))
-    except ValueError:
-        print(f'código {param2} não encontrado')
-    return param1
+# Função para adicionar um item à lista
+def adicionar(lista, item):
+  lista.append(item)
 
+# Função para remover um item da lista
+def remover(lista, item):
+  if (item in lista):
+    lista.remove(item)
+  else:
+    print(f'código {item} não encontrado')
 
-def exibir(param: list) -> print():
-    """
-    Imprime o resultado na tela
-    :param param: list -> contêm os valores a serem impressos.
-    :return:
-    """
-    for k, v in enumerate(sorted(param)):
-        if k + 1 == len(param):
-            print(v)
-        else:
-            print(v, end=' ')
+# Função para exibir os itens da lista de forma ordenada
+def exibir(lista):
+  lista.sort()
 
+  for i in range(len(lista)):
+    if (i < len(lista) - 1):
+      print(lista[i], end=' ')
+    else:
+      print(lista[i])
 
-code_list = []
-code1 = input().split()
-if len(code1) != 0:
-    adicionar(code_list, code1)
-while True:
-    code2 = input().split()
-    if code2[0] == 'adicionar':
-        adicionar(code_list, code2)
-    elif code2[0] == 'remover':
-        remover(code_list, code2[1])
-    elif code2[0] == 'exibir':
-        exibir(code_list)
-    elif code2[0] == 'encerrar':
-        exibir(code_list)
-        break
+# Receber os comandos digitados (comando valor) pelo usuário 
+comando = input().split()
+# ['exibir']
+# ['adicionar', '1']
+
+# Estrutura de repetição enquanto "encerrar" não for digitado
+while comando[0] != 'encerrar':
+  # Se digitar "adicionar", executar a função que adiciona e assim por diante
+  if (comando[0] == 'adicionar'):
+    adicionar(carrinho_de_compras, int(comando[1]))
+  elif (comando[0] == 'remover'):
+    remover(carrinho_de_compras, int(comando[1]))
+  else:
+    exibir(carrinho_de_compras)
+
+  comando = input().split()
+
+exibir(carrinho_de_compras)
