@@ -10,31 +10,14 @@ a frase 'Nenhuma tabuada no intervalo!', sem apóstrofos. Obs.: Lembre-se de nã
 """
 # Resposta:
 
-# Atenção, caso queira copiar este código para o URI VOCÊ DEVE RETIRAR OS DOCS STRINGS E ANNOTATIONS!, CASO CONTRÁRIO,
-# NÃO IRÁ PASSAR NO URI.
+# ENTRADAS
+A = int(input())
+B = int(input())
 
-
-def calcula_tabuada(x: int, y: int) -> print():
-    """
-    Imprimi a tabuada de acordo com os números passados para x e y, caso x seja maior que y, será desconsiderado, senão,
-    caso números positivos, será impressa a tabuada na respectiva ordem do intervalo, caso os números sejam negativos,
-    também será impressa a tabuada em ordem crescente, até que o valor seja igual a 10.
-    :param x: int -> Valores positivos ou negativos menores que y
-    :param y: int -> Valores positivos ou negativos maiores que x
-    :return: None
-    """
-    if x <= y:
-        while x <= y:
-            contador = 1
-            while contador <= 10:
-                print(f'{x} x {contador} = {x * contador}')
-                contador += 1
-            print('-' * 10)
-            x += 1
-    else:
-        print('Nenhuma tabuada no intervalo!')
-
-
-foo = int(input())
-bar = int(input())
-calcula_tabuada(foo, bar)
+if (A > B):
+  print('Nenhuma tabuada no intervalo!')
+else:
+  for intervalo in range(A, B + 1): # 2 até 3 = 2
+    for i in range(1, 11): # 1 a 10
+      print(f'{intervalo} x {i} = {intervalo * i}')
+    print('----------')
