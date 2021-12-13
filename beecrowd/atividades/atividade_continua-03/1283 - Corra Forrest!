@@ -18,29 +18,29 @@ na mesma ordem em que foram dados na entrada.
 """
 # Resposta:
 
-# Atenção, caso queira copiar este código para o URI VOCÊ DEVE RETIRAR OS DOCS STRINGS E ANNOTATIONS!, CASO CONTRÁRIO,
-# NÃO IRÁ PASSAR NO URI.
+tempos = []
+tempo = int(input())
 
+def calcula_media():
+  media = sum(tempos) / len(tempos)
+  return media
 
-def average_calculator(param: list) -> print():
-    """
-    Calcula a média aritmética das corridas, no final imprime a media, e também as corridas que ficaram abaixo da média
-    :param param: List -> Recebe os valores das corridas;
-    :return: None
-    """
-    average_time = sum(param) / len(param)
-    print(f'MEDIA: {average_time:.2f}')
-    for i in param:
-        if i < average_time:
-            print(i)
+def exibe_media(media):
+  print(f'MEDIA: {media:.2f}')
 
+def exibe_tempos_abaixo_da_media(media):
+  if(tempo < media):
+    print(tempo)
 
-runs = []
-count = 0
-while True:
-    time = int(input())
-    if time < 0:
-        break
-    else:
-        runs.append(time)
-average_calculator(runs)
+def adiciona_tempo_na_lista():
+  tempos.append(tempo)
+
+while (tempo >= 0):
+  adiciona_tempo_na_lista()
+  tempo = int(input())
+
+exibe_media(calcula_media())
+
+for tempo in tempos:
+  if ( tempo >= 0 ):
+    exibe_tempos_abaixo_da_media(calcula_media())
